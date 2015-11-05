@@ -43,7 +43,7 @@ GSEObjects<-list(length=length(ListaGSEs))
     #ponle un if para comprobar exito en la descarga si no que comience
   }
 
-  ALLGSMfromthisGSMList<-function(ThisGSMList){
+  AllGSMfromthisGSMList<-function(ThisGSMList){
     for(i in 1:20){
     sapply(ThisGSMList,function(x){ getGEOSuppFiles(x)})
     #ponle un if para comprobar exito en la descarga si no que comience

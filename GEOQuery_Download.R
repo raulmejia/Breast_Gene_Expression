@@ -32,6 +32,7 @@ GSEObjects<-list(length=length(ListaGSEs))
   for(i in 1:length(ListaGSEs)){
     GSEObject[i]<-getGEO(ListaGSEs[i],GSEMatrix=FALSE)
     }
+  return(GSEObjects)  
   }
     sapply(as.list(names(GSMList(GSEObject[i]))),function(x){ getGEOSuppFiles(x)})
     #ponle un if para comprobar exito en la descarga si no que comience

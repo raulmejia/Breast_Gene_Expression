@@ -30,14 +30,18 @@ sapply(as.list((names(GSMList(gse54002)))[!(names(GSMList(gse54002)) %in% vectc)
 DownObjectsGSE<- function(ListaGSEs){
 GSEObjects<-list(length=length(ListaGSEs))
   for(i in 1:length(ListaGSEs)){
-    GSEObject[i]<-getGEO(ListaGSEs[i],GSEMatrix=FALSE)
+    GSEObjects[i]<-getGEO(ListaGSEs[i],GSEMatrix=FALSE)
+    print("We have the first GSE Object")
     }
   return(GSEObjects)  
   }
-    sapply(as.list(names(GSMList(GSEObject[i]))),function(x){ getGEOSuppFiles(x)})
+  
+  ALLGSMfromthisGSEObject<-function(ThisGSEObject){
+    if()
+    sapply(as.list(names(GSMList(ThisGSEObject))),function(x){ getGEOSuppFiles(x)})
     #ponle un if para comprobar exito en la descarga si no que comience
   }
-}
+
 
 # If you have the exact list of GSM, you can use the next code:
 # First we create a list object in R with the names of our GSM

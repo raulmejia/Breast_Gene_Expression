@@ -27,10 +27,12 @@ sapply(as.list((names(GSMList(gse54002)))[!(names(GSMList(gse54002)) %in% vectc)
 
 #Automatic show
 
-DownSupplGSEs<- function(ListaGSEs){
-GSEObject<-list(length=length(ListaGSEs))
-  for(i in 1:length(listaGSEs)){
-    GSEObject[i]<-getGEO(listaGSEs[i],GSEMatrix=FALSE)
+DownObjectsGSE<- function(ListaGSEs){
+GSEObjects<-list(length=length(ListaGSEs))
+  for(i in 1:length(ListaGSEs)){
+    GSEObject[i]<-getGEO(ListaGSEs[i],GSEMatrix=FALSE)
+    }
+  }
     sapply(as.list(names(GSMList(GSEObject[i]))),function(x){ getGEOSuppFiles(x)})
     #ponle un if para comprobar exito en la descarga si no que comience
   }

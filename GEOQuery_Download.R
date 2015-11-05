@@ -4,6 +4,7 @@
 ###   Platform: x86_64-unknown-linux-gnu (64-bit)
 ###   GEOquery_2.34.0     Biobase_2.28.0      BiocGenerics_0.14.0
 ###   
+#install GEOquery
 
 library(GEOquery)
 
@@ -42,6 +43,15 @@ GSEObjects<-list(length=length(ListaGSEs))
     #ponle un if para comprobar exito en la descarga si no que comience
   }
 
+  ALLGSMfromthisGSMList<-function(ThisGSMList){
+    for(i in 1:20){
+    sapply(ThisGSMList,function(x){ getGEOSuppFiles(x)})
+    #ponle un if para comprobar exito en la descarga si no que comience
+      if( length(ThisGSMList) == NumberAlreadyDown<-try(system("ls GSM* | grep *CEL* | wc -l")) ) {
+      return()
+      }
+    }
+  }
 
 # If you have the exact list of GSM, you can use the next code:
 # First we create a list object in R with the names of our GSM

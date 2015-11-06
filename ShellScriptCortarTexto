@@ -1,0 +1,6 @@
+sed -e 's/\//_/g' nombre_de_tu_archivo
+sed 's/\./_/g' AlNoback > pointlessAl
+sed -e 's/\//_/g' already | sed 's/\./_/g' > wow
+sed -e 's/\//_/g' already | sed 's/\./_/g' | sed 's/_/"\t"/g' | awk '{ print $2 }' > w
+# Desde los datos crudos ls hasta un csv
+sed -e 's/\//_/g' already | sed 's/\./_/g' | sed 's/_/"\t"/g' | awk '{ print $2 }' | sed ':a;N;s/\n/,/g;ba'

@@ -37,19 +37,28 @@ GSEObjects<-list(length=length(ListaGSEs))
   return(GSEObjects)  
   }
   
-  ALLGSMfromthisGSEObject<-function(ThisGSEObject){
-    if()
-    sapply(as.list(names(GSMList(ThisGSEObject))),function(x){ getGEOSuppFiles(x)})
+  
+  
+  GetGSMCELfromthisGSEObject<-function(ThisGSEObject){
+    for(i in 1:length(ThisGSEObject)){
+    
+    try(system("mkdir Directorio |  wc -l"))
+    setwd("")
+    
+    sapply(as.list(names(GSMList(ThisGSEObject[[i]]))),function(x){ getGEOSuppFiles(x)})
     #ponle un if para comprobar exito en la descarga si no que comience
+    print("numero de GSE trabajado"); print(i)
+    
+    }
   }
 
   AllGSMfromthisGSMList<-function(ThisGSMList){
     for(i in 1:20){
     sapply(ThisGSMList,function(x){ getGEOSuppFiles(x)})
     #ponle un if para comprobar exito en la descarga si no que comience
-      if( length(ThisGSMList) == NumberAlreadyDown<-try(system("ls GSM* | grep *CEL* | wc -l")) ) {
+      if( length(ThisGSMList) == NumberAlreadyDown<-try(system("ls GSM*/*CEL* |  wc -l")) ) {
       return()
-      }
+      } 
     }
   }
 
@@ -65,4 +74,25 @@ sapply(MyGSMList,function(x){ getGEOSuppFiles(x)})
 #Order the download
 
 #mv GSM*/*.CEL* .
+
+ListGSMfromGSE <-function(ThisGSEObject){
+  vecpartialnames<-list(length=length(ThisGSEObject))
+  vectotal<-list(length=length(ThisGSEObject))
+  for (i in 1:length(ThisGSEObject)){
+    vecpartialnames[[i]]<-names(GSMList(ThisGSEObject[[i]]))
+    
+    vectotal[[i]]<-c(vectotal[i-1],(vecpartialnames[i]))
+  }
+  return(vectotal)
+}
+
+NamesVectorGSMFromGSE <-function(ThisGSEObject){
+  vecpartialnames<-vector(length=0)
+  for (i in 1:length(ThisGSEObject)){
+    vecpartialnames<-c(vecpartialnames,names(GSMList(ThisGSEObject[[i]])))
+  }
+  return(vecpartialnames)
+}
+
+
 

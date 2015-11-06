@@ -8,10 +8,11 @@
 source("http://bioconductor.org/biocLite.R")
 biocLite("GEOquery")
 library(GEOquery)
+###################################################################
+# If you only have a GSE's list use the next chunk of code ########
+###################################################################
 
-# If you only have a GSE's list use the next chunk of code
-
-GSEObjAndGSMnamesFromVec<- function(vecGSEnames){
+GSMnamesFromVecGSEnames<- function(vecGSEnames){
   #This function recieves a vector of GSEnames
   # Build up  a list with equal length to the vector of GSEnames 
   GSEObjects<-list(length=length(vecGSEnames))
@@ -20,17 +21,15 @@ GSEObjAndGSMnamesFromVec<- function(vecGSEnames){
     GSEObjects[i]<-getGEO(vecGSEnames[i],GSEMatrix=FALSE)
     print("We have theGSE Object"); print(i)
   }
-    #CAll to the function to GEt a vector of GSM names of each GSE
+    #Call to the function to GEt a vector of GSM names of each GSE
     AllGSMnames<-NamesVectorGSMFromGSE(GSEObjects)
-    #AS a result we return a list of two elements the first contains the vector of GSMnames, and the second
-    # The list of GSEObjects.
-    Result<-list(length=2)
-    Result[1]<-GSEObjects
-    Result[2]<-AllGSMnames
-  return(Result)  
+    #Call to a function to download the CEL files, from the previous GSMnames vector.
+    DownCELFromThisGSMVec(AllGSMnames)
+    #Return the GSMnames vector
+  return(AllGSMnames)  
 }
   # This function recieves a List of GSEObjects and return all GSMnames in a Vector 
- NamesVectorGSMFromGSE <-function(ThisGSEObject){
+NamesVectorGSMFromGSE <-function(ThisGSEObject){
  #Build up a vector of length zero
   vecpartialnames<-vector(length=0)
   #Fill the previous object with the GSM names.
@@ -38,11 +37,30 @@ GSEObjAndGSMnamesFromVec<- function(vecGSEnames){
     vecpartialnames<-c(vecpartialnames,names(GSMList(ThisGSEObject[[i]])))
     }
   return(vecpartialnames)
-  }  
+}  
+
+############################################################################  
+#Once we have a GSMnames vector we can Download the .CEL files through:  ###
+############################################################################
   
-  
-  
-  GetGSMCELfromthisGSEObject<-function(ThisGSEObject){
+#Función calada para descargar los datos supplementarios (Incluyendo los CEL files) a partir de un vector de nombres GSM
+#Para comenzar desde donde se quedo y evitar el problema es que las descargas se cortan  
+DownCELFromThisGSMVec<-function(ThisGSMList){
+    for(i in 1:20){
+    sapply(ThisGSMList,function(x){ getGEOSuppFiles(x)})
+    #ponle un if para comprobar exito en la descarga si no que comience
+      if( length(ThisGSMList) == as.numeric(try(system("ls GSM*/*CEL* |  wc -l"))) ) {
+      return()
+      } 
+    }
+  }
+
+#####################################################
+###### More pseudo-random code in construction ######
+#####################################################
+
+GetGSMCELfromthisGSEObject<-function(ThisGSEObject){
+
     for(i in 1:length(ThisGSEObject)){
     
     sapply(as.list(names(GSMList(ThisGSEObject[[i]]))),function(x){ getGEOSuppFiles(x)})
@@ -50,22 +68,10 @@ GSEObjAndGSMnamesFromVec<- function(vecGSEnames){
     print("numero de GSE trabajado"); print(i)
     
     }
-  }
-#Función calada para descargar los datos supplementarios (Incluyendo los CEL files) a partir de un vector de nombres GSM
-#El problema es que las descargas se cortan
-  AllGSMfromthisGSMList<-function(ThisGSMList){
-    for(i in 1:20){
-    sapply(ThisGSMList,function(x){ getGEOSuppFiles(x)})
-    #ponle un if para comprobar exito en la descarga si no que comience
-    
-      if( length(ThisGSMList) == as.numeric(try(system("ls GSM*/*CEL* |  wc -l"))) ) {
-      return()
-      } 
-    }
-  }
+}
+  
 
-#Función calada para descargar los datos supplementarios (Incluyendo los CEL files) a partir de un vector de nombres GSM
-#Para comenzar desde donde se quedo y evitar el problema es que las descargas se cortan
+
   RobustAllGSMfromthisGSMList<-function(ThisGSMList){
     for(i in 1:20){
     sapply(ThisGSMList,function(x){ getGEOSuppFiles(x)})
@@ -106,5 +112,3 @@ sapply(as.list((names(GSMList(gse54002)))[!(names(GSMList(gse54002)) %in% alread
 #no se descargo completamente
 (names(GSMList(gse54002)))[!(names(GSMList(gse54002)) %in% vectc)]
 sapply(as.list((names(GSMList(gse54002)))[!(names(GSMList(gse54002)) %in% vectc)]),function(x){ getGEOSuppFiles(x)})
-
-

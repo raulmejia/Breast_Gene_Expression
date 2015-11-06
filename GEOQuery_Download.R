@@ -51,16 +51,34 @@ GSEObjects<-list(length=length(ListaGSEs))
     
     }
   }
-
+#Función calada para descargar los datos supplementarios (Incluyendo los CEL files) a partir de un vector de nombres GSM
+#El problema es que las descargas se cortan
   AllGSMfromthisGSMList<-function(ThisGSMList){
     for(i in 1:20){
     sapply(ThisGSMList,function(x){ getGEOSuppFiles(x)})
     #ponle un if para comprobar exito en la descarga si no que comience
-      if( length(ThisGSMList) == NumberAlreadyDown<-try(system("ls GSM*/*CEL* |  wc -l")) ) {
+    
+      if( length(ThisGSMList) == as.numeric(try(system("ls GSM*/*CEL* |  wc -l"))) ) {
       return()
       } 
     }
   }
+
+#Función calada para descargar los datos supplementarios (Incluyendo los CEL files) a partir de un vector de nombres GSM
+#Para comenzar desde donde se quedo y evitar el problema es que las descargas se cortan
+  RobustAllGSMfromthisGSMList<-function(ThisGSMList){
+    for(i in 1:20){
+    sapply(ThisGSMList,function(x){ getGEOSuppFiles(x)})
+    #ponle un if para comprobar exito en la descarga si no que comience
+    
+      if( length(ThisGSMList) == as.numeric(try(system("ls GSM*/*CEL* |  wc -l"))) ) {
+      return()
+      } 
+      # Obten la list
+    }
+  }
+
+
 
 # If you have the exact list of GSM, you can use the next code:
 # First we create a list object in R with the names of our GSM
@@ -68,24 +86,11 @@ MyGSMList <- list('','','')
 # Next we download the suppl files (wich include the .CEL files).  The function will create a folder for 
 # each GSM information.
 sapply(MyGSMList,function(x){ getGEOSuppFiles(x)})
-
 #We must make the list of GSM to download:
 
-#Order the download
 
-#mv GSM*/*.CEL* .
 
-ListGSMfromGSE <-function(ThisGSEObject){
-  vecpartialnames<-list(length=length(ThisGSEObject))
-  vectotal<-list(length=length(ThisGSEObject))
-  for (i in 1:length(ThisGSEObject)){
-    vecpartialnames[[i]]<-names(GSMList(ThisGSEObject[[i]]))
-    
-    vectotal[[i]]<-c(vectotal[i-1],(vecpartialnames[i]))
-  }
-  return(vectotal)
-}
-
+#Función calada para obtener una vector con los nombres de los GSM a partir de una Lista de un objetos GSE.
 NamesVectorGSMFromGSE <-function(ThisGSEObject){
   vecpartialnames<-vector(length=0)
   for (i in 1:length(ThisGSEObject)){

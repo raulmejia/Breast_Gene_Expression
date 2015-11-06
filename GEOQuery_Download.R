@@ -74,7 +74,10 @@ GSEObjects<-list(length=length(ListaGSEs))
       if( length(ThisGSMList) == as.numeric(try(system("ls GSM*/*CEL* |  wc -l"))) ) {
       return()
       } 
-      # Obten la list
+      # Obten un archivo csv a partir de los nombres de los .CEL ya descargados
+      (try(system("ls GSM*/*CEL* |  sed -e 's/\//_/g' already | sed 's/\./_/g' | sed 's/_/"\t"/g' | awk '{ print $2 }' | sed ':a;N;s/\n/,/g;ba' > CELAlreadyDown.csv"))
+      #Convierte esa csv en un vector
+      VecAlreadyDown<-as.vector(read.csv("CELAlreadyDown.csv"))
     }
   }
 

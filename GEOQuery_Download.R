@@ -79,3 +79,25 @@ DownCELFromThisGSMVec<-function(ThisGSMList){
 #Si no se descargo completamente
 (names(GSMList(gse54002)))[!(names(GSMList(gse54002)) %in% vectc)]
 sapply(as.list((names(GSMList(gse54002)))[!(names(GSMList(gse54002)) %in% vectc)]),function(x){ getGEOSuppFiles(x)})
+
+
+
+
+DownCELFromThisGSMVec<-function(ThisGSMList){
+    for(i in 1:5){
+    sapply(ThisGSMList,function(x){ getGEOSuppFiles(x)})
+    #ponle un if para comprobar exito en la descarga si no que comience
+    try(system("ls GSM*/*CEL* |  wc -l > CELAlreadyDown.csv"))
+    CelAD<-as.numeric(read.table("CELAlreadyDown.csv"))
+      if( length(ThisGSMList) == CelAD ) {
+      return()
+      } 
+    }
+  }
+  
+  
+  try(system("ls *CEL* |  wc -l > CELAlreadyDown.csv"))
+  CelAD<-as.numeric(read.table("CELAlreadyDown.csv"))
+    
+
+

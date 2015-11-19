@@ -38,7 +38,7 @@ edata<-exprs(frmaData)
 
 pdf("frmaNormalized.pdf",width=7,height=5)
 plotDensity(edata, col=mycolors, main="frma normalization")
-boxplot(edata,col=mycolors, main="Normaliced data distribution")
+boxplot(edata,col=mycolors, main="Normalized data distribution")
 dev.off()
 
 ################# BATCH #########################
@@ -57,30 +57,25 @@ colnames(edata) <- nombresGSM
 batch <- c((rep(0,719)))
 
 # Enfermos
+#The next files must be in .csv format preferently
+GSE54002<-read.csv("/home/rmejia/Documents/Doctorado/Determinar_my_Pipeline_RM_Doctorado/GSE54002id.txt")
+GSE50567<-read.csv("/home/rmejia/Documents/Doctorado/Determinar_my_Pipeline_RM_Doctorado/GSE50567id.txt")
+GSE42568<-read.csv("/home/rmejia/Documents/Doctorado/Determinar_my_Pipeline_RM_Doctorado/GSE42568id.txt")
+GSE29431<-read.csv("/home/rmejia/Documents/Doctorado/Determinar_my_Pipeline_RM_Doctorado/GSE29431id.txt")
+GSE10810<-read.csv("/home/rmejia/Documents/Doctorado/Determinar_my_Pipeline_RM_Doctorado/GSE10810id.txt")
+# Experimento con muchos controles GSE10780<-read.csv("/home/rmejia/Documents/Doctorado/Determinar_my_Pipeline_RM_Doctorado/GSE10780id.txt")
 
-GSE1456<-read.table(/"Users/hachepunto/notron_media/mega_download/lists_of_names/all_GSE1456.txt", colClasses = "character")
-GSE1561<-read.table("/Users/hachepunto/notron_media/mega_download/lists_of_names/all_GSE1561.txt", colClasses = "character")
-GSE2603<-read.table("/Users/hachepunto/notron_media/mega_download/lists_of_names/all_GSE2603.txt", colClasses = "character")
-GSE2990<-read.table("/Users/hachepunto/notron_media/mega_download/lists_of_names/all_GSE2990.txt", colClasses = "character")
-GSE3494<-read.table("/Users/hachepunto/notron_media/mega_download/lists_of_names/all_GSE3494.txt", colClasses = "character")
-GSE4922<-read.table("/Users/hachepunto/notron_media/mega_download/lists_of_names/all_GSE4922.txt", colClasses = "character")
-GSE7390<-read.table("/Users/hachepunto/notron_media/mega_download/lists_of_names/all_GSE7390.txt", colClasses = "character")
+GSE54002<-names(GSE54002)
+GSE50567<-names(GSE50567)
+GSE42568<-names(GSE42568)
+GSE29431<-names(GSE29431)
+GSE10810<-names(GSE10810)
 
-GSE1456 <- GSE1456[[1]]
-GSE1561 <- GSE1561[[1]]
-GSE2603 <- GSE2603[[1]]
-GSE2990 <- GSE2990[[1]]
-GSE3494 <- GSE3494[[1]]
-GSE4922 <- GSE4922[[1]]
-GSE7390 <- GSE7390[[1]]
-
-n1456 <- which(nombresGSM %in% GSE1456)
-n1561 <- which(nombresGSM %in% GSE1561)
-n2603 <- which(nombresGSM %in% GSE2603)
-n2990 <- which(nombresGSM %in% GSE2990)
-n3494 <- which(nombresGSM %in% GSE3494)
-n4922 <- which(nombresGSM %in% GSE4922)
-n7390 <- which(nombresGSM %in% GSE7390)
+1305n <- which(nombresGSM %in% GSE54002)
+n1561 <- which(nombresGSM %in% GSE50567)
+n2603 <- which(nombresGSM %in% GSE42568)
+n2990 <- which(nombresGSM %in% GSE29431)
+n3494 <- which(nombresGSM %in% GSE10810)
 
 batch[n1456] = 1
 batch[n1561] = 2

@@ -58,12 +58,13 @@ batch <- c((rep(0,719)))
 
 # Enfermos
 #The next files must be in .csv format preferently
+# Experimento con muchos controles GSE10780<-read.csv("/home/rmejia/Documents/Doctorado/Determinar_my_Pipeline_RM_Doctorado/GSE10780id.txt")
+
 GSE54002<-read.csv("/home/rmejia/Documents/Doctorado/Determinar_my_Pipeline_RM_Doctorado/GSE54002id.txt")
 GSE50567<-read.csv("/home/rmejia/Documents/Doctorado/Determinar_my_Pipeline_RM_Doctorado/GSE50567id.txt")
 GSE42568<-read.csv("/home/rmejia/Documents/Doctorado/Determinar_my_Pipeline_RM_Doctorado/GSE42568id.txt")
 GSE29431<-read.csv("/home/rmejia/Documents/Doctorado/Determinar_my_Pipeline_RM_Doctorado/GSE29431id.txt")
 GSE10810<-read.csv("/home/rmejia/Documents/Doctorado/Determinar_my_Pipeline_RM_Doctorado/GSE10810id.txt")
-# Experimento con muchos controles GSE10780<-read.csv("/home/rmejia/Documents/Doctorado/Determinar_my_Pipeline_RM_Doctorado/GSE10780id.txt")
 
 GSE54002<-names(GSE54002)
 GSE50567<-names(GSE50567)
@@ -72,20 +73,18 @@ GSE29431<-names(GSE29431)
 GSE10810<-names(GSE10810)
 
 1305n <- which(nombresGSM %in% GSE54002)
-n1561 <- which(nombresGSM %in% GSE50567)
-n2603 <- which(nombresGSM %in% GSE42568)
-n2990 <- which(nombresGSM %in% GSE29431)
-n3494 <- which(nombresGSM %in% GSE10810)
+1223n <- which(nombresGSM %in% GSE50567)
+1045n <- which(nombresGSM %in% GSE42568)
+7286n <- which(nombresGSM %in% GSE29431)
+2729n <- which(nombresGSM %in% GSE10810)
 
-batch[n1456] = 1
-batch[n1561] = 2
-batch[n2603] = 3
-batch[n2990] = 4
-batch[n3494] = 5
-batch[n4922] = 6
-batch[n7390] = 7
+batch[1305n] = 1
+batch[1223n] = 2
+batch[1045n] = 3
+batch[7286n] = 4
+batch[2729n] = 5
 
-tumor <- c(n1456, n1561, n2603, n2990, n3494, n4922, n7390)
+tumor <- c(1305n, 1223n, 1045n, 7286n, 2729n)
 
 # Sanos
 

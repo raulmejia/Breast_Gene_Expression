@@ -1,35 +1,45 @@
+#source("http://bioconductor.org/biocLite.R")
+#biocLite("hgu133plus2.db")
+#biocLite("hgu133plus2frmavecs")
+#library(hgu133a.db) Instala las apropiadas
+
 library(affy)
 library(frma)
 library(sva)
 library(annotate)  
-#library(hgu133a.db) Instala las apropiadas
 library(limma)
+library(hgu133plus2.db)
+library(hgu133plus2frmavecs)
 
-Data = ReadAffy()
-
+Data<-ReadAffy()
 N=length(Data@phenoData@data$sample)
 pm.mm=0
 for (i in 1:N) {pm.mm[i] = mean(mm(Data[,i])>pm(Data[,i]))}
-mycolors = rep(c("blue","red","green", "magenta"), each = 2)
+#GSE42568 (GSM1045*)=121
+#GSE50567 (GSM1223*)=41
+#GSE54002 (GSM1305*)=433
+#GSE10810 (GSM272*)=58
+###########GSE29044 (GSM719*)=79
+#GSE29431 (GSM728)=66
+#mycolors= c(rep(1,121),rep(2,41),rep(3,433),rep(4,58),rep(5,79),rep(6,66))
+mycolors= c(rep("purple",121),rep("yellow",41),rep("red",433),rep("green",58),rep("brown",66))
 
-pdf("DataGraphs.pdf",width=7,height=5)
+pdf("DatosCrudos719.pdf",width=7,height=5)
 hist(Data, col=mycolors, main="Raw data distribution")
 boxplot(Data,col=mycolors, main="Raw data distribution")
-plot(100*pm.mm, type='h', main='Percent of MMs > PMs', ylab="%",xlab="Microa
-rrays", ylim=c(0,50), col="red", lwd=5 )
-grid(nx = NULL, ny = 6, col = "blue", lty = "dotted",lwd = par("lwd"), equil
-ogs = TRUE)
+
+plot(100*pm.mm, type='h', main='Percent of MMs > PMs', ylab="%",xlab="Microarrays", ylim=c(0,50), col="red", lwd=5 )
+grid(nx = NULL, ny = 6, col = "blue", lty = "dotted",lwd = par("lwd"), equilogs = TRUE)
+
 dev.off()
 
-
-frmaData <- frma(Data, summarize="robust_weighted_average") #tardado
-
+frmaData <- frma(Data, summarize="robust_weighted_average")
 edata<-exprs(frmaData)
-head(edata)
+
 pdf("frmaNormalized.pdf",width=7,height=5)
 mycolors = rep(c("blue","red","green", "magenta"), each = 2)
 plotDensity(edata, col=mycolors, main="frma normalization")
-boxplot(edata,col=mycolors, main="Normalized data distribution")
+boxplot(edata,col=mycolors, main="Normaliced data distribution")
 dev.off()
 
 ################# BATCH #########################
@@ -45,11 +55,11 @@ nombresGSM <- as.character(nombresGSM)
 
 colnames(edata) <- nombresGSM
 
-batch <- c((rep(0,880)))
+batch <- c((rep(0,719)))
 
 # Enfermos
 
-GSE1456<-read.table("/Users/hachepunto/notron_media/mega_download/lists_of_names/all_GSE1456.txt", colClasses = "character")
+GSE1456<-read.table(/"Users/hachepunto/notron_media/mega_download/lists_of_names/all_GSE1456.txt", colClasses = "character")
 GSE1561<-read.table("/Users/hachepunto/notron_media/mega_download/lists_of_names/all_GSE1561.txt", colClasses = "character")
 GSE2603<-read.table("/Users/hachepunto/notron_media/mega_download/lists_of_names/all_GSE2603.txt", colClasses = "character")
 GSE2990<-read.table("/Users/hachepunto/notron_media/mega_download/lists_of_names/all_GSE2990.txt", colClasses = "character")

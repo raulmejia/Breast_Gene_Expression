@@ -45,14 +45,14 @@ dev.off()
 
 nombresGSM <- colnames(edata)
 
-nombresGSM <- data.frame(lapply(nombresGSM, function(v) {
-  if (is.character(v)) return(toupper(v))
-  else return(v)
-}))
+#nombresGSM <- data.frame(lapply(nombresGSM, function(v) {
+#  if (is.character(v)) return(toupper(v))
+#  else return(v)
+#}))
 
-nombresGSM <- as.character(nombresGSM)
+#nombresGSM <- as.character(nombresGSM)
 
-colnames(edata) <- nombresGSM
+#colnames(edata) <- nombresGSM
 
 batch <- c((rep(0,719)))
 
@@ -72,19 +72,19 @@ GSE42568<-names(GSE42568)
 GSE29431<-names(GSE29431)
 GSE10810<-names(GSE10810)
 
-1305n <- which(nombresGSM %in% GSE54002)
-1223n <- which(nombresGSM %in% GSE50567)
-1045n <- which(nombresGSM %in% GSE42568)
-7286n <- which(nombresGSM %in% GSE29431)
-2729n <- which(nombresGSM %in% GSE10810)
+n1305 <- which(nombresGSM %in% GSE54002)
+n1223 <- which(nombresGSM %in% GSE50567)
+n1045 <- which(nombresGSM %in% GSE42568)
+n7286 <- which(nombresGSM %in% GSE29431)
+n2729 <- which(nombresGSM %in% GSE10810)
 
-batch[1305n] = 1
-batch[1223n] = 2
-batch[1045n] = 3
-batch[7286n] = 4
-batch[2729n] = 5
+batch[n1305] = 1
+batch[n1223] = 2
+batch[n1045] = 3
+batch[n7286] = 4
+batch[n2729] = 5
 
-tumor <- c(1305n, 1223n, 1045n, 7286n, 2729n)
+tumor <- c(n1305, n1223, n1045, n7286, n2729)
 
 # Sanos
 

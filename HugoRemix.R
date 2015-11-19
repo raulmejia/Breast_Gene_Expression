@@ -37,7 +37,6 @@ frmaData <- frma(Data, summarize="robust_weighted_average")
 edata<-exprs(frmaData)
 
 pdf("frmaNormalized.pdf",width=7,height=5)
-mycolors = rep(c("blue","red","green", "magenta"), each = 2)
 plotDensity(edata, col=mycolors, main="frma normalization")
 boxplot(edata,col=mycolors, main="Normaliced data distribution")
 dev.off()

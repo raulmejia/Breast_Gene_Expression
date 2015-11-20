@@ -4,6 +4,8 @@
 #library(hgu133a.db) Instala las apropiadas
 # install.packages("gsubfn)"
 
+#Nota: Haz un pca para cada etapa de los datos, tambien puede ser un herarchical clustering. para ver que tanto
+#hemos combatido el batch effect
 
 library(affy)
 library(frma)
@@ -186,6 +188,9 @@ eset<-ifelse(is.na(eset), as.vector(rownames(eset)), as.vector(eset))
 write.csv(eset, file="precolaps.csv")
 
 
+### NEW Hugo
+
+/home/hachepunto/rauldb/rauldb.R
 
 
 

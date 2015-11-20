@@ -2,6 +2,8 @@
 #biocLite("hgu133plus2.db")
 #biocLite("hgu133plus2frmavecs")
 #library(hgu133a.db) Instala las apropiadas
+# install.packages("gsubfn)"
+
 
 library(affy)
 library(frma)
@@ -10,6 +12,7 @@ library(annotate)
 library(limma)
 library(hgu133plus2.db)
 library(hgu133plus2frmavecs)
+library(gsubfn)
 
 Data<-ReadAffy()
 N=length(Data@phenoData@data$sample)
@@ -45,10 +48,10 @@ dev.off()
 
 nombresGSM <- colnames(edata)
 
-#nombresGSM <- data.frame(lapply(nombresGSM, function(v) {
-#  if (is.character(v)) return(toupper(v))
-#  else return(v)
-#}))
+nombresGSM <- data.frame(lapply(nombresGSM, function(v) {
+  if (is.character(v)) return(toupper(v))
+  else return(v)
+}))
 
 #nombresGSM <- as.character(nombresGSM)
 

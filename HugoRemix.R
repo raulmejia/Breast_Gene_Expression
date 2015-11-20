@@ -14,7 +14,7 @@ library(annotate)
 library(limma)
 library(hgu133plus2.db)
 library(hgu133plus2frmavecs)
-library(gsubfn)
+#library(gsubfn)
 
 Data<-ReadAffy()
 N=length(Data@phenoData@data$sample)
@@ -192,6 +192,11 @@ write.csv(eset, file="precolaps.csv")
 
 /home/hachepunto/rauldb/rauldb.R
 
+
+### My Batch ~
+mod=model.matrix(~as.factor(cancer) + as.factor(batch), data=pheno)
+fit=lm.fit(mod,t(edata))
+hist
 
 
 

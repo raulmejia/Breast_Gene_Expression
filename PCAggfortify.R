@@ -14,3 +14,10 @@ autoplot(prcomp(t.edata), data=d.f.t.e, colour='mycolors')
 autoplot(prcomp())
 autoplot(prcomp(my), data=iris, colour='Species')
 
+
+#GSE42568 (GSM1045*)=121
+#GSE50567 (GSM1223*)=41
+#GSE54002 (GSM1305*)=433
+#GSE10810 (GSM272*)=58
+###########GSE29044 (GSM719*)=79
+#GSE29431 (GSM728)=66

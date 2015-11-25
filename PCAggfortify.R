@@ -13,6 +13,16 @@ autoplot(prcomp(t.edata), data=d.f.t.e, colour='myGSE', main="Principal componen
 dev.off()
 
 
+ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),rep("s",27),rep("t",31),rep("s",12),rep("t",54))
+# We transpose the matrix 
+t.edata<-t(edata)
+t.edata.ListaSanosYEnf<-cbind(t.edata,ListaSanosYEnf)
+d.f.t.e <-as.data.frame(t.edata.ListaSanosYEnf)
+# Calculate the principal components and make the plot
+pdf("PCA_DatosNormalizados_only_fRMA719_Enfermos_y_Sanos.pdf",width=7,height=5)
+autoplot(prcomp(t.edata), data=d.f.t.e, colour='ListaSanosYEnf', main="Principal components 719 only fRMA normalized")
+dev.off()
+
 #GSE42568 (GSM1045*)=121
 #GSE50567 (GSM1223*)=41
 #GSE54002 (GSM1305*)=433
@@ -28,7 +38,7 @@ GSM104nnsanos<-read.csv("GSM104nnnsanos.txt")
 GSM104nnsanos<-names(GSM104nnsanos)
 
 GSM122nnnid<-read.csv("GSM122nnnid.txt")
-GSM122nnnid<-names(GSM122nnid)
+GSM122nnnid<-names(GSM122nnnid)
 GSM122nnnsanos<-read.csv("GSM122nnnsanos.txt")
 GSM122nnnsanos<-names(GSM122nnnsanos)
 
@@ -51,3 +61,9 @@ GSM728nnnid<-read.csv("GSM728nnnid.txt")
 GSM728nnnid<-names( GSM728nnnid)
 GSM728nnnsanos<-read.csv("GSM728nnnsanos.txt")
 GSM728nnnsanos<-names(GSM728nnnsanos)
+
+ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),rep("s",27),rep("t",31),rep("s",12),rep("t",54))
+
+GSM122nnnid<-read.csv("GSM122nnnid.txt")
+GSM122nnnid<-names(GSM122nnnid)
+

@@ -13,8 +13,8 @@ d.f.t.r.e <-as.data.frame(t.r.e)
 d.f.t.r.e.L <-as.data.frame(t.r.e.L)
 # Calculate the principal components and make the plot
 pdf("PCA_Datos_Crudos_agrupados_por_GSE_SanosyEnfermos_719.pdf",width=7,height=5)
-autoplot(prcomp(t.r.e), data=d.f.t.r.e, colour='myGSE', main="Principal components 719 raw data by GSE")
-autoplot(prcomp(t.r.e.L), data=d.f.t.r.e.L, colour='ListaSanosYEnf', main="Principal components 719 raw data by health or sick")
+autoplot(prcomp(t.RawExprs), data=d.f.t.r.e, colour='myGSE', main="Principal components 719 raw data by GSE")
+autoplot(prcomp(t.RawExprs), data=d.f.t.r.e.L, colour='ListaSanosYEnf', main="Principal components 719 raw data by health or sick")
 dev.off()
 2+1
 

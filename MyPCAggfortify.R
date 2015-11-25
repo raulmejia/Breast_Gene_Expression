@@ -3,15 +3,20 @@ install.packages('ggfortify')
 library(ggfortify)
 # Define our group
 myGSE= c(rep("GSE42568",121),rep("GSE50567",41),rep("GSE4002",433),rep("GSE10810",58),rep("GSE29431",66))
+ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),rep("s",27),rep("t",31),rep("s",12),rep("t",54))
 # We transpose the matrix 
-t.edata<-t(edata)
-t.edata.myGSE<-cbind(t.edata,myGSE)
-d.f.t.e <-as.data.frame(t.edata.myGSE)
+RawExprs<-exprs(Data)
+t.RawExprs<-t(RawExprs)
+t.r.e<-cbind(t.edata,myGSE)
+t.r.e.L<-cbind(t.edata,ListaSanosYEnf)
+d.f.t.r.e <-as.data.frame(t.r.e)
+d.f.t.r.e.L <-as.data.frame(t.r.e.L)
 # Calculate the principal components and make the plot
-pdf("PCA_DatosNormalizados_only_fRMA719.pdf",width=7,height=5)
-autoplot(prcomp(t.edata), data=d.f.t.e, colour='myGSE', main="Principal components 719 only fRMA normalized")
+pdf("PCA_Datos_Crudos_agrupados_por_GSE_SanosyEnfermos_719.pdf",width=7,height=5)
+autoplot(prcomp(t.r.e), data=d.f.t.r.e, colour='myGSE', main="Principal components 719 raw data by GSE")
+autoplot(prcomp(t.r.e.L), data=d.f.t.r.e.L, colour='ListaSanosYEnf', main="Principal components 719 raw data by health or sick")
 dev.off()
-
+2+1
 
 ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),rep("s",27),rep("t",31),rep("s",12),rep("t",54))
 # We transpose the matrix 

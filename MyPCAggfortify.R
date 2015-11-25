@@ -7,7 +7,7 @@ ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),r
 # We transpose the matrix 
 RawExprs<-exprs(Data)
 t.RawExprs<-t(RawExprs)
-t.r.e<-cbind(t.edata,myGSE)
+t.r.e<-cbind(t.RawExprs,myGSE)
 t.r.e.L<-cbind(t.edata,ListaSanosYEnf)
 d.f.t.r.e <-as.data.frame(t.r.e)
 d.f.t.r.e.L <-as.data.frame(t.r.e.L)

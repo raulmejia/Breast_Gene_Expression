@@ -38,6 +38,25 @@ grid(nx = NULL, ny = 6, col = "blue", lty = "dotted",lwd = par("lwd"), equilogs 
 
 dev.off()
 
+### The PCA
+# We extract the expression matrix and transpose it to obtain the principal components 
+RawExprs<-exprs(Data)
+t.RawExprs<-t(RawExprs)
+#make the Labels
+myGSE= c(rep("GSE42568",121),rep("GSE50567",41),rep("GSE4002",433),rep("GSE10810",58),rep("GSE29431",66))
+ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),rep("s",27),rep("t",31),rep("s",12),rep("t",54))
+PCARawLabels<-data.frame(myGSE,ListaSanosyEnf)
+
+pdf("PCA_Datos_Crudos_GSE_colors_and_HealthvsSick_shape_719.pdf",width=7,height=5)
+autoplot(prcomp(t.RawExprs), data=PCARawLabels, colour='myGSE',shape='ListaSanosYEnf', main="PCA 719 raw data GSE color and Health vs Sick shape")
+dev.off()
+1+2
+### End PCA
+
+
+
+
+
 frmaData <- frma(Data, summarize="robust_weighted_average")
 edata<-exprs(frmaData)
 

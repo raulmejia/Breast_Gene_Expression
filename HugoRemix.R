@@ -205,7 +205,20 @@ eset<-cbind(genesymbols, combat_edata)
 eset<-ifelse(is.na(eset), as.vector(rownames(eset)), as.vector(eset))
 
 write.csv(eset, file="precolaps.csv")
+#####PCA DE Combat ###
 
+
+t.matrix<-t(combat_edata)
+#make the Labels
+myGSE= c(rep("GSE42568",121),rep("GSE50567",41),rep("GSE4002",433),rep("GSE10810",58),rep("GSE29431",66))
+ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),rep("s",27),rep("t",31),rep("s",12),rep("t",54))
+PCARawLabels<-data.frame(myGSE,ListaSanosYEnf)
+
+pdf("PCA_combat_GSE_colors_and_HealthvsSick_shape_719.pdf",width=7,height=5)
+autoplot(prcomp(t.matrix), data=PCARawLabels, colour='myGSE',shape='ListaSanosYEnf', main="PCA 719 combat GSE color and Health vs Sick shape")
+autoplot(prcomp(t.matrix), data=PCARawLabels, colour='ListaSanosYEnf',shape='myGSE', main="PCA 719 combat GSE shape and Health vs Sick colour")
+dev.off()
+1+2
 
 ### NEW Hugo
 

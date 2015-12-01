@@ -29,7 +29,7 @@ for (i in 1:N) {pm.mm[i] = mean(mm(Data[,i])>pm(Data[,i]))}
 #mycolors= c(rep(1,121),rep(2,41),rep(3,433),rep(4,58),rep(5,79),rep(6,66))
 mycolors= c(rep("purple",121),rep("yellow",41),rep("red",433),rep("green",58),rep("brown",66))
 
-pdf("DatosCrudos719.pdf",width=7,height=5)
+pdf("DatosCrudos.pdf",width=7,height=5)
 hist(Data, col=mycolors, main="Raw data distribution")
 boxplot(Data,col=mycolors, main="Raw data distribution")
 

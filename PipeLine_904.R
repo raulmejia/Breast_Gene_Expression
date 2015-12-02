@@ -28,7 +28,7 @@ for (i in 1:N) {pm.mm[i] = mean(mm(Data[,i])>pm(Data[,i]))}
 ###########GSE29044 (GSM719*)=79
 #GSE29431 (GSM728)=66
 #mycolors= c(rep(1,121),rep(2,41),rep(3,433),rep(4,58),rep(5,79),rep(6,66))
-mycolors= c(rep("purple",121),rep("yellow",41),rep("red",433),rep("green",58),rep("brown",66))
+mycolors= c(rep("purple",121),rep("yellow",41),rep("red",433),rep("pink",185),rep("green",58),rep("brown",66))
 
 pdf("DatosCrudos.pdf",width=7,height=5)
 hist(Data, col=mycolors, main="Raw data distribution")
@@ -44,12 +44,14 @@ dev.off()
 RawExprs<-exprs(Data)
 t.RawExprs<-t(RawExprs)
 #make the Labels
-myGSE= c(rep("GSE42568",121),rep("GSE50567",41),rep("GSE4002",433),rep("GSE10810",58),rep("GSE29431",66))
-ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),rep("s",27),rep("t",31),rep("s",12),rep("t",54))
+myGSE= c(rep("GSE42568",121),rep("GSE50567",41),rep("GSE4002",433),rep("GSE10780",185),rep("GSE10810",58),rep("GSE29431",66))
+ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),"s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","s","s","t","t","t","s","s","s","s","s","t","s","s","s","s","t","t","s","s","s","s","t","t","t","t","t","t","s","s","s","s","s","s","s","s","s","s","t","s","s","t","s","s","s","s","s","t","s","t","s","t","s","s","t","t","s","s","s","t","s","s","s","t","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","s","t","t","s","t","t","t","s","s","s","s","t","t","t","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","t","s","s","s","s","s","s","t","s","s","t","s","s","s","s","s","s","s","s","s","t","t","s","s","t","s","s","s","s","t","t","s","s","s","s","s","t","s",rep("s",27),rep("t",31),rep("s",12),rep("t",54))
 PCARawLabels<-data.frame(myGSE,ListaSanosYEnf)
 
 pdf("PCA_Datos_Crudos_GSE_colors_and_HealthvsSick_shape_719.pdf",width=7,height=5)
-autoplot(prcomp(t.RawExprs), data=PCARawLabels, colour='myGSE',shape='ListaSanosYEnf', main="PCA 719 raw data GSE color and Health vs Sick shape")
+autoplot(prcomp(t.RawExprs), data=PCARawLabels, colour='myGSE',shape='ListaSanosYEnf', main="PCA 7904 raw data GSE color and Health vs Sick shape")
+autoplot(prcomp(t.RawExprs), data=PCARawLabels, colour='ListaSanosYEnf',shape='myGSE', main="PCA 904 raw data GSE shape and Health vs Sick colour")
+
 dev.off()
 1+2
 ### End PCA
@@ -65,6 +67,21 @@ pdf("frmaNormalized.pdf",width=7,height=5)
 plotDensity(edata, col=mycolors, main="frma normalization")
 boxplot(edata,col=mycolors, main="Normalized data distribution")
 dev.off()
+
+
+
+t.RawExprs<-t(edata)
+#make the Labels
+myGSE= c(rep("GSE42568",121),rep("GSE50567",41),rep("GSE4002",433),rep("GSE10810",58),rep("GSE29431",66))
+ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),rep("s",27),rep("t",31),rep("s",12),rep("t",54))
+PCARawLabels<-data.frame(myGSE,ListaSanosYEnf)
+
+pdf("PCA_Datos_Crudos_GSE_colors_and_HealthvsSick_shape_719.pdf",width=7,height=5)
+autoplot(prcomp(t.RawExprs), data=PCARawLabels, colour='myGSE',shape='ListaSanosYEnf', main="PCA 719 raw data GSE color and Health vs Sick shape")
+dev.off()
+1+2
+
+
 
 ################# BATCH #########################
 

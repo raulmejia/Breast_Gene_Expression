@@ -14,6 +14,7 @@ library(annotate)
 library(limma)
 library(hgu133plus2.db)
 library(hgu133plus2frmavecs)
+library(ggfortify)
 #library(gsubfn)
 
 Data<-ReadAffy()

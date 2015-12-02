@@ -2,6 +2,12 @@
 #biocLite("hgu133plus2.db")
 #biocLite("hgu133plus2frmavecs")
 #library(hgu133a.db) Instala las apropiadas
+biocLite("hgu133plus2.db")
+biocLite("hgu133plus2frmavecs")
+biocLite("limma")
+biocLite("sva")
+biocLite("frma")
+
 # install.packages("gsubfn)"
 
 #Nota: Haz un pca para cada etapa de los datos, tambien puede ser un herarchical clustering. para ver que tanto

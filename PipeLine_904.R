@@ -70,17 +70,18 @@ final.time<-proc.time() - Inicial.time
 frmaData <- frma(Data, summarize="robust_weighted_average")
 edata<-exprs(frmaData)
 
+myGSE= c(rep("GSE42568",121),rep("GSE50567",41),rep("GSE54002",433),rep("GSE10780",185),rep("GSE10810",58),rep("GSE29431",66))
+ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),"s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","s","s","t","t","t","s","s","s","s","s","t","s","s","s","s","t","t","s","s","s","s","t","t","t","t","t","t","s","s","s","s","s","s","s","s","s","s","t","s","s","t","s","s","s","s","s","t","s","t","s","t","s","s","t","t","s","s","s","t","s","s","s","t","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","s","t","t","s","t","t","t","s","s","s","s","t","t","t","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","t","s","s","s","s","s","s","t","s","s","t","s","s","s","s","s","s","s","s","s","t","t","s","s","t","s","s","s","s","t","t","s","s","s","s","s","t","s",rep("s",27),rep("t",31),rep("s",12),rep("t",54))
+PCARawLabels<-data.frame(myGSE,ListaSanosYEnf)
+
 pdf("frmaNormalized.pdf",width=7,height=5)
-plotDensity(edata, col=mycolors, main="frma normalization")
-boxplot(edata,col=mycolors, main="Normalized data distribution")
+plotDensity(edata, col=myGSE, main="frma normalization")
+boxplot(edata,col=myGSE, main="Normalized data distribution")
 dev.off()
 
 Inicial.time<-proc.time()
 t.RawExprs<-t(edata)
 #make the Labels
-myGSE= c(rep("GSE42568",121),rep("GSE50567",41),rep("GSE54002",433),rep("GSE10780",185),rep("GSE10810",58),rep("GSE29431",66))
-ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),"s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","s","s","t","t","t","s","s","s","s","s","t","s","s","s","s","t","t","s","s","s","s","t","t","t","t","t","t","s","s","s","s","s","s","s","s","s","s","t","s","s","t","s","s","s","s","s","t","s","t","s","t","s","s","t","t","s","s","s","t","s","s","s","t","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","s","t","t","s","t","t","t","s","s","s","s","t","t","t","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","t","s","s","s","s","s","s","t","s","s","t","s","s","s","s","s","s","s","s","s","t","t","s","s","t","s","s","s","s","t","t","s","s","s","s","s","t","s",rep("s",27),rep("t",31),rep("s",12),rep("t",54))
-PCARawLabels<-data.frame(myGSE,ListaSanosYEnf)
 
 pdf("PCA_Datos_frmaOnlyGSE_colors_and_HealthvsSick_shape_719.pdf",width=7,height=5)
 autoplot(prcomp(t.RawExprs), data=PCARawLabels, colour='myGSE',shape='ListaSanosYEnf', main="PCA 904 fRMA Only GSE color and Health vs Sick shape")

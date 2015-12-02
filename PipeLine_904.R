@@ -1,12 +1,13 @@
+# Install the appropiate libraries if you need it
 #source("http://bioconductor.org/biocLite.R")
+#install.packages("ggfortify")
+#biocLite("annotate")
+#biocLite("affy")
 #biocLite("hgu133plus2.db")
 #biocLite("hgu133plus2frmavecs")
-#library(hgu133a.db) Instala las apropiadas
-biocLite("hgu133plus2.db")
-biocLite("hgu133plus2frmavecs")
-biocLite("limma")
-biocLite("sva")
-biocLite("frma")
+#biocLite("limma")
+#biocLite("sva")
+#biocLite("frma")
 
 # install.packages("gsubfn)"
 

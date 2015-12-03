@@ -35,60 +35,60 @@ for (i in 1:N) {pm.mm[i] = mean(mm(Data[,i])>pm(Data[,i]))}
 ###########GSE29044 (GSM719*)=79
 #GSE29431 (GSM728)=66
 #mycolors= c(rep(1,121),rep(2,41),rep(3,433),rep(4,58),rep(5,79),rep(6,66))
+
+# Colors and groups for the graphics
 mycolors= c(rep("purple",121),rep("yellow",41),rep("red",433),rep("pink",185),rep("green",58),rep("brown",66))
-
-pdf("DatosCrudos.pdf",width=7,height=5)
-hist(Data, col=mycolors, main="Raw data distribution")
-boxplot(Data,col=mycolors, main="Raw data distribution")
-
-plot(100*pm.mm, type='h', main='Percent of MMs > PMs', ylab="%",xlab="Microarrays", ylim=c(0,50), col="red", lwd=5 )
-grid(nx = NULL, ny = 6, col = "blue", lty = "dotted",lwd = par("lwd"), equilogs = TRUE)
-
-dev.off()
-
-### The PCA
-# We extract the expression matrix and transpose it to obtain the principal components 
-RawExprs<-exprs(Data)
-Inicial.time<-proc.time()
-t.RawExprs<-t(RawExprs)
-#make the Labels
 myGSE= c(rep("GSE42568",121),rep("GSE50567",41),rep("GSE4002",433),rep("GSE10780",185),rep("GSE10810",58),rep("GSE29431",66))
 ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),"s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","s","s","t","t","t","s","s","s","s","s","t","s","s","s","s","t","t","s","s","s","s","t","t","t","t","t","t","s","s","s","s","s","s","s","s","s","s","t","s","s","t","s","s","s","s","s","t","s","t","s","t","s","s","t","t","s","s","s","t","s","s","s","t","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","s","t","t","s","t","t","t","s","s","s","s","t","t","t","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","t","s","s","s","s","s","s","t","s","s","t","s","s","s","s","s","s","s","s","s","t","t","s","s","t","s","s","s","s","t","t","s","s","s","s","s","t","s",rep("s",27),rep("t",31),rep("s",12),rep("t",54))
 PCARawLabels<-data.frame(myGSE,ListaSanosYEnf)
 
+#Graphics of the density plot, boxplot and PM vs MM
+pdf("DatosCrudos.pdf",width=7,height=5)
+hist(Data, col=mycolors, main="Raw data distribution")
+boxplot(Data,col=mycolors, main="Raw data distribution")
+plot(100*pm.mm, type='h', main='Percent of MMs > PMs', ylab="%",xlab="Microarrays", ylim=c(0,50), col="red", lwd=5 )
+grid(nx = NULL, ny = 6, col = "blue", lty = "dotted",lwd = par("lwd"), equilogs = TRUE)
+dev.off()
+
+### The PCA
+# We extract the expression matrix and transpose it to obtain the principal components 
+
+Time.load.Raw_since<-proc.time()
+RawExprs<-exprs(Data)
+time.transpose_since<-proc.time()
+t.RawExprs<-t(RawExprs)
 pdf("PCA_Datos_Crudos_GSE_colors_and_HealthvsSick_shape_719.pdf",width=7,height=5)
 autoplot(prcomp(t.RawExprs), data=PCARawLabels, colour='myGSE',shape='ListaSanosYEnf', main="PCA 7904 raw data GSE color and Health vs Sick shape")
+time.trasposeToPCA<-proc.time() - time.transpose_since
+1+2
+
 autoplot(prcomp(t.RawExprs), data=PCARawLabels, colour='ListaSanosYEnf',shape='myGSE', main="PCA 904 raw data GSE shape and Health vs Sick colour")
 dev.off()
-final.time<-proc.time() - Inicial.time
+time.trasposeToPCA<-proc.time() - time.transpose_since
 1+2
 ### End PCA
 
 
-
-
-
 frmaData <- frma(Data, summarize="robust_weighted_average")
-edata<-exprs(frmaData)
 
+edata<-exprs(frmaData)
+mycolors= c(rep("purple",121),rep("yellow",41),rep("red",433),rep("pink",185),rep("green",58),rep("brown",66))
+pdf("frmaNormalized.pdf",width=7,height=5)
+plotDensity(edata, col=mycolors, main="frma normalization")
+boxplot(edata,col=mycolors, main="Normalized data distribution")
+dev.off()
+
+time.transpòse.edata_Before<-proc.time()
+t.edata<-t(edata)
+#make the Labels
 myGSE= c(rep("GSE42568",121),rep("GSE50567",41),rep("GSE54002",433),rep("GSE10780",185),rep("GSE10810",58),rep("GSE29431",66))
 ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),"s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","s","s","t","t","t","s","s","s","s","s","t","s","s","s","s","t","t","s","s","s","s","t","t","t","t","t","t","s","s","s","s","s","s","s","s","s","s","t","s","s","t","s","s","s","s","s","t","s","t","s","t","s","s","t","t","s","s","s","t","s","s","s","t","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","s","t","t","s","t","t","t","s","s","s","s","t","t","t","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","s","s","t","s","s","s","s","s","s","s","t","s","s","s","s","s","s","t","s","s","t","s","s","s","s","s","s","s","s","s","t","t","s","s","t","s","s","s","s","t","t","s","s","s","s","s","t","s",rep("s",27),rep("t",31),rep("s",12),rep("t",54))
 PCARawLabels<-data.frame(myGSE,ListaSanosYEnf)
-
-pdf("frmaNormalized.pdf",width=7,height=5)
-plotDensity(edata, col=myGSE, main="frma normalization")
-boxplot(edata,col=myGSE, main="Normalized data distribution")
+pdf("PCA_Datos_frmaOnly_904both.pdf",width=7,height=5)
+autoplot(prcomp(t.edata), data=PCARawLabels, colour='ListaSanosYEnf',shape='myGSE', main="PCA 904 fRMA GSE shape and Health vs Sick colour")
+autoplot(prcomp(t.edata), data=PCARawLabels, colour='myGSE',shape='ListaSanosYEnf', main="PCA 904 fRMA Only GSE color and Health vs Sick shape")
 dev.off()
-
-Inicial.time<-proc.time()
-t.RawExprs<-t(edata)
-#make the Labels
-
-pdf("PCA_Datos_frmaOnlyGSE_colors_and_HealthvsSick_shape_719.pdf",width=7,height=5)
-autoplot(prcomp(t.RawExprs), data=PCARawLabels, colour='myGSE',shape='ListaSanosYEnf', main="PCA 904 fRMA Only GSE color and Health vs Sick shape")
-autoplot(prcomp(t.RawExprs), data=PCARawLabels, colour='ListaSanosYEnf',shape='myGSE', main="PCA 904 fRMA GSE shape and Health vs Sick colour")
-dev.off()
-final.time<-proc.time() - Inicial.time
+time.Transpose.edataToPCA<-proc.time() - time.transpòse.edata_Before
 1+2
 
 ################# BATCH #########################

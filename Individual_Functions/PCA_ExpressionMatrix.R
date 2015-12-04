@@ -19,9 +19,8 @@ LabelObject<-data.frame(myGSE,ListaSanosYEnf)
 ### The PCA
 # We extract the expression matrix and transpose it to obtain the principal components 
 
-Time.load.Raw_since<-proc.time()
-RawExprs<-exprs(Data)
 time.transpose_since<-proc.time()
+RawExprs<-exprs(Data)
 t.RawExprs<-t(RawExprs)
 pdf("PCA_Datos_Crudos_GSE_colors_and_HealthvsSick_shape_719.pdf",width=7,height=5)
 autoplot(prcomp(t.RawExprs), data=LabelObject, colour='myGSE',shape='ListaSanosYEnf', main="PCA 7904 raw data GSE color and Health vs Sick shape")

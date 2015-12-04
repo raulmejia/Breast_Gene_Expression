@@ -1,4 +1,4 @@
-hemos combatido el batch effect
+
 
 library(affy)
 library(frma)

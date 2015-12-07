@@ -41,8 +41,9 @@ colnames(precolaps_combat)[2] <- c("b")
 write.table(precolaps_combat, file="rauldb_matrix_precolaps.txt", quote = FALSE, sep = "\t", row.names = FALSE)
 
 
-
-
+source("http://biocondutor.org/biocLite.R")
+biocLite("illuminaHumanv3.db")
+library(illuminaHumanv3.db)
 
 
 

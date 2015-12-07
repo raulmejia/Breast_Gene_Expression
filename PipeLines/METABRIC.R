@@ -1,4 +1,33 @@
-# Design and contingence matrix
+source("http://bioconductor.org/biocLite.R")
+biocLite("illuminaHumanv3.db")
+
+Initial.time=proc.time()
+
+library(illuminaHumanv3.db)
+library(limma)
+library(annotate)
+library(Biobase)
+
+Initial.time=proc.time()
+
+exprsFileNorm="../Normals/normals_ExpressionMatrix.txt"
+Normexprs <- as.matrix(read.table(exprsFileNorm, header=TRUE, sep="\t", row.names=1, as.is=TRUE))
+NormalminimalSet <- ExpressionSet(assayData=Normexprs)
+
+
+exprsFileDisc="../DiscoverySet_Complete_4800/discovery_ExpressionMatrix.txt"
+Discexprs<- as.matrix(read.table(exprsFileDisc, header=TRUE, sep="\t", row.names=1, as.is=TRUE))
+DiscminimalSet <- ExpressionSet(assayData=Discexprs)
+
+
+exprsFileVal="../ValidationSet/validation_ExpressionMatrix.txt"
+Valexprs<- as.matrix(read.table(exprsFileVal, header=TRUE))
+ValminimalSet <- ExpressionSet(assayData=Valexprs)
+
+Matrix.METABRIC<-cbind(Normexprs,Discexprs,Valexprs)
+eSet.METABRIC<-ExpressionSet(assayData=Matrix.METABRIC)
+
+#Design and contingence matrix
 design = matrix(rep(0,4272), nrow=2136)
 colnames(design) = c('tumor','sano')
 rownames(design) = colnames(Matrix.METABRIC)
@@ -30,24 +59,35 @@ dev.off()
 lumis_id_METABRIC<-rownames(Matrix.METABRIC)
 write.table(lumis_id_METABRIC, file="lumis_id_METABRIC.txt", quote = F, row.names = F, col.names = F)
 
-genesymbols<-getSYMBOL(as.character(lumis_id_METABRIC), "hgu133plus2.db")
-write.table(genesymbols, file="hgu133plus2DB.txt", quote = F, row.names = TRUE, col.names = F)
+
+
+
+genesymbols<-getSYMBOL(as.character(lumis_id_METABRIC), "illuminaHumanv3.db")
+write.table(genesymbols, file="illuminaHumanv3_geneSymbols.txt", quote = F, row.names = TRUE, col.names = F)
 
 # Read my oun annotation of the chip 
-my_annotation <- read.table(file="myannotation_plus2.txt", header = TRUE, row.names=1,colClasses = "character")
+#my_annotation <- read.table(file="myannotation_plus2.txt", header = TRUE, row.names=1,colClasses = "character")
 
-precolaps_combat <- cbind(my_annotation, statistics[,6],combat_edata)
-colnames(precolaps_combat)[2] <- c("b")
-write.table(precolaps_combat, file="rauldb_matrix_precolaps.txt", quote = FALSE, sep = "\t", row.names = FALSE)
-
-
-source("http://biocondutor.org/biocLite.R")
-biocLite("illuminaHumanv3.db")
-library(illuminaHumanv3.db)
+#precolaps_combat <- cbind(my_annotation, statistics[,6],Matrix.METABRIC)
+#colnames(precolaps_combat)[2] <- c("b")
+#write.table(precolaps_combat, file="METABRIC_matrix_precolaps.txt", quote = FALSE, sep = "\t", row.names = FALSE)
 
 
+Final.time=proc.time() - Initial.time
 
 
+any((as.vector(attributes(genesymbols)))[[1]] == rownames(Matrix.METABRIC))
+
+M.METABRIC.biocAnot<-Matrix.METABRIC
+rownames(M.METABRIC.biocAnot)<-genesymbols
+
+precolaps_METABRIC <- cbind(genesymbols, statistics[,6],Matrix.METABRIC)
+colnames(precolaps_METABRIC)[2] <- c("b")
+write.table(precolaps_METABRIC, file="METABRIC_matrix_precolaps.txt", quote = FALSE, sep = "\t", row.names = FALSE)
+
+
+
+### Colapsaitor..
 
 
 

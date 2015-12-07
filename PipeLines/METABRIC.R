@@ -68,14 +68,13 @@ write.table(genesymbols, file="illuminaHumanv3_geneSymbols.txt", quote = F, row.
 
 # Read my oun annotation of the chip 
 #my_annotation <- read.table(file="myannotation_plus2.txt", header = TRUE, row.names=1,colClasses = "character")
+## My_annotation 
 
-#precolaps_combat <- cbind(my_annotation, statistics[,6],Matrix.METABRIC)
-#colnames(precolaps_combat)[2] <- c("b")
-#write.table(precolaps_combat, file="METABRIC_matrix_precolaps.txt", quote = FALSE, sep = "\t", row.names = FALSE)
+### Shell script pata quitar los primeros 48 mil y pico renglones  cat /home/rmejia/Documents/Doctorado/METABRIC/Myannotarion_illuminaHT12v3.txt  | awk ' NR >=48804   { print }' > /home/rmejia/Documents/Doctorado/METABRIC/Myannotation_illuminaHT12v3.txt
+my_annotation <- as.matrix(read.table(file="/home/rmejia/Documents/Doctorado/METABRIC/Myannotation_illuminaHT12v3.txt", header=TRUE,header = FALSE, row.names=1,colClasses = "character"))
 
 
 Final.time=proc.time() - Initial.time
-
 
 any((as.vector(attributes(genesymbols)))[[1]] == rownames(Matrix.METABRIC))
 
@@ -113,6 +112,7 @@ na.omit()
 
 biocLite("genefu")
 
+which(rownames(METABRIC_COL) %in% genes50)
 which(rownames(METABRIC_COL) %in% genes50)
 
 #faltan estos   "CDCA1" "CXXC5" "KNTC2" "MIA"   "ORC6L"  

@@ -21,6 +21,9 @@ LabelObject<-data.frame(myGSE,ListaSanosYEnf)
 
 time.transpose_since<-proc.time()
 
+myGSE= c(rep("Norm",144),rep("Disc",997),rep("Val",995))
+ListaSanosYEnf<-c(rep("s",144),rep("t",1992))
+LabelObject<-data.frame(myGSE,ListaSanosYEnf)
 t.RawExprs<-t(RawExprs)
 pdf("PCA_Datos_Crudos_GSE_colors_and_HealthvsSick_shape_719.pdf",width=7,height=5)
 autoplot(prcomp(t.RawExprs), data=LabelObject, colour='myGSE',shape='ListaSanosYEnf', main="PCA 7904 raw data GSE color and Health vs Sick shape")

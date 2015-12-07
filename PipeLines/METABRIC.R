@@ -56,11 +56,12 @@ pdf(file="MatrixMETABRIC_B_statisitics.pdf")
 boxplot(statistics[,6])
 dev.off()
 
+############################
+#### BEGIN THE ANOTATION ###
+############################
+
 lumis_id_METABRIC<-rownames(Matrix.METABRIC)
 write.table(lumis_id_METABRIC, file="lumis_id_METABRIC.txt", quote = F, row.names = F, col.names = F)
-
-
-
 
 genesymbols<-getSYMBOL(as.character(lumis_id_METABRIC), "illuminaHumanv3.db")
 write.table(genesymbols, file="illuminaHumanv3_geneSymbols.txt", quote = F, row.names = TRUE, col.names = F)
@@ -111,3 +112,9 @@ METABRIC_Colapsed_NOinternalNA[!is.finite(METABRIC_Colapsed_NOinternalNA)] <- 0
 na.omit()
 
 biocLite("genefu")
+
+which(rownames(METABRIC_COL) %in% genes50)
+
+#faltan estos   "CDCA1" "CXXC5" "KNTC2" "MIA"   "ORC6L"  
+#:O
+

@@ -110,4 +110,4 @@ METABRIC_Colapsed_NOinternalNA[!is.finite(METABRIC_Colapsed_NOinternalNA)] <- 0
 # NA errased METColNAerased[, !colSums(is.na(METColNAerased))]
 na.omit()
 
-
+biocLite("genefu")

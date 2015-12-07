@@ -89,8 +89,25 @@ write.table(precolaps_METABRIC, file="METABRIC_matrix_precolaps.txt", quote = FA
 
 ### Colapsaitor..
 
+## Shell script pata quitar el NA del renglon  cat METABRIC_matrix_precolaps_colapsed.txt  | awk 'NR <= 2 || NR >=4   { print }' > METABRIC_colapsed_NO_NA.txt
+exprsFileDisc="METABRIC_colapsed_NO_NA.txt"
+METABRIC_Colapsed<- as.matrix(read.table(exprsFileDisc, header=TRUE, sep="\t", row.names=1, as.is=TRUE))
+
+##Eliminar NA adentro de la matrix (convertirlos acero)
+
+Whichones<-is.finite(METABRIC_Colapsed_NOinternalNA)
+
+which(colSums(Whichones) %in% "19306")
+which(rowSums(Whichones) %in% "2134")
+which(rowSums(Whichones) %in% "2135")
+which(rowSums(Whichones) %in% "2136")
+METABRIC_Colapsed[1509,1462]
+## Meterles ceros a los NA
+# Ejemplo m <- matrix(c(1,2,3,NA,4,5), 3); m[!is.finite(m)] <- 0
+METABRIC_Colapsed_NOinternalNA[!is.finite(METABRIC_Colapsed_NOinternalNA)] <- 0
 
 
-
+# NA errased METColNAerased[, !colSums(is.na(METColNAerased))]
+na.omit()
 
 

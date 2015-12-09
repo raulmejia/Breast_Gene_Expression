@@ -66,12 +66,25 @@ write.table(lumis_id_METABRIC, file="lumis_id_METABRIC.txt", quote = F, row.name
 genesymbols<-getSYMBOL(as.character(lumis_id_METABRIC), "illuminaHumanv3.db")
 write.table(genesymbols, file="illuminaHumanv3_geneSymbols.txt", quote = F, row.names = TRUE, col.names = F)
 
-# Read my oun annotation of the chip 
-#my_annotation <- read.table(file="myannotation_plus2.txt", header = TRUE, row.names=1,colClasses = "character")
-## My_annotation 
+
+
+
+# Write genes 45 METABRIC  write.table(METABRIC_COLgenes45, file="METABRIC_COLgenes45.txt", quote = F, row.names = TRUE, col.names = T)
+
+
+
+# My oun annotation of the chip 
+# GenePROFILER to complete the poor annotation
+# Perl for remove the spaces perl -pi.old -e 's{ }{-}g' Myannotation_illuminaHT12v3.csv
+# my_annotation <- read.table(file="/home/rmejia/Documents/Doctorado/METABRIC/Myannotation_illuminaHT12v3NOspaces.txt")
+# read_my_annotation = my_annotation 
+# read_my_annotation.matrix<-as.matrix(read_my_annotation)
+
+
 
 ### Shell script pata quitar los primeros 48 mil y pico renglones  cat /home/rmejia/Documents/Doctorado/METABRIC/Myannotarion_illuminaHT12v3.txt  | awk ' NR >=48804   { print }' > /home/rmejia/Documents/Doctorado/METABRIC/Myannotation_illuminaHT12v3.txt
 my_annotation <- as.matrix(read.table(file="/home/rmejia/Documents/Doctorado/METABRIC/Myannotation_illuminaHT12v3.txt", header=TRUE,header = FALSE, row.names=1,colClasses = "character"))
+
 
 
 Final.time=proc.time() - Initial.time
@@ -117,4 +130,25 @@ which(rownames(METABRIC_COL) %in% genes50)
 
 #faltan estos   "CDCA1" "CXXC5" "KNTC2" "MIA"   "ORC6L"  
 #:O
+
+
+cut -f 145-1141 coco.txt > cocoDisc.txt
+
+ cat raul_metabric_pam50scores.txt  | awk ' NR <=2136   { print }' > pamscores_NONA.txt
+which(rownames(RawExpMET) %in% colnames(Normexprs))
+RawExpMET
+groups=
+WW.Matrix2<-as.numeric(RawExpMET[,1:5])
+WW.Matrix2<-(matrix(as.numeric(RawExpMET[,1:5]),ncol=5))
+
+
+myGSE= c(rep("N",143),rep("D",997),rep("V",995),"N")
+ListaSanosYEnf<-c(rep("s",144),rep("t",1992))
+LabelObject<-data.frame(myGSE,ListaSanosYEnf)
+t.RawExprs<-WW.Matrix2
+pdf("PCA_METABRICWrong.pdf",width=7,height=5)
+autoplot(prcomp(t.RawExprs), data=LabelObject, colour='myGSE', main="PCA METABRIC Wrong")
+dev.off()
+1+2
+
 

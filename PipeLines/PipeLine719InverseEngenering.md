@@ -9,9 +9,10 @@ library(ggfortify)
 
 
 # Colors and groups for the graphics
-mycolors= c(rep("purple",121),rep("yellow",41),rep("red",433),rep("pink",185),rep("green",58),rep("brown",66))
-myGSE= c(rep("GSE42568",121),rep("GSE50567",41),rep("GSE4002",433),rep("GSE10780",185),rep("GSE10810",58),rep("GSE29431",66))
-ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),rep("s",27),rep("t",31),rep("s",12),rep("t",54))
+`mycolors= c(rep("purple",121),rep("yellow",41),rep("red",433),rep("pink",185),rep("green",58),rep("brown",66))`
+`myGSE= c(rep("GSE42568",121),rep("GSE50567",41),rep("GSE4002",433),rep("GSE10780",185),rep("GSE10810",58),rep("GSE29431",66))`
+`ListaSanosYEnf<-c(rep("s",17),rep("t",104),rep("t",35),rep("s",6),rep("t",300),rep("s",16),rep("t",117),rep("s",27),rep("t",31),rep("s",12),rep("t",54))`
+
 LabelObject<-data.frame(myGSE,ListaSanosYEnf)
 
 ### The PCA

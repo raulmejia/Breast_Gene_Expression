@@ -9,20 +9,21 @@ biocLite("GEOquery")
 library(GEOquery)
 
 ############################################################################  
-# If you have the GSM vector try to Download the .CEL files through:     ###
+# A) If you have the GSM vector try to Download the .CEL files through:  ###
 ############################################################################
 
-# You need your own GSM vector, in this example, we'll use 
-#################Exaple GSM vector##################
+# You need your own GSM vector, or for this time you can use the following:
+############### Example GSM vector #################
 MyGSMList = c("GSM272923","GSM272924","GSM272925")##
 ####################################################
+
 sapply(MyGSMList,function(x){ getGEOSuppFiles(x)})
 
 
 
 
 ###################################################################
-# If you only have a GSE's list use the next chunk of code ########
+# B) If you only have a GSE's list use the next chunk of code #####
 ###################################################################
 
 #This couple of functions download the .CEl.gz files asociated with your GSEs 

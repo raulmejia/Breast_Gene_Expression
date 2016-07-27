@@ -18,6 +18,6 @@ print(edata[,1])
 #MyGSMList = c("GSM272923","GSM272924","GSM272925")##
 ####################################################
 
-sapply(edata[,1],function(x){ getGEOSuppFiles(x)})
+sapply(as.character(edata[,1]),function(x){ getGEOSuppFiles(x)})
 
 

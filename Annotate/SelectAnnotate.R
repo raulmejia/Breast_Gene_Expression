@@ -1,7 +1,7 @@
 library(annotate)
 library(hgu133plus2.db)
 
-## Annotate a secas
+
 #Ejemplo Hello<-select(hgu133plus2.db, "207356_at", c("SYMBOL","ENTREZID"))
 
 path_to_probes<-c("/my/path/para/probes")
